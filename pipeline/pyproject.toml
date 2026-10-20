@@ -1,0 +1,65 @@
+# touche content pipeline: writes data/, never runs at request time.
+# Keep everything below "baseline" as strict as it is (ADR 0001).
+
+[project]
+name = "touche-pipeline"
+version = "0.1.0"
+description = "Word lists, kids sentences and corpus chunks for touche"
+requires-python = ">=3.14"
+dependencies = []
+
+[dependency-groups]
+dev = [
+  "basedpyright==1.40.2",
+  "pytest==9.1.1",
+  "pytest-cov==7.1.0",
+  "ruff==0.17.1",
+]
+
+[project.scripts]
+touche-pipeline = "touche_pipeline.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.13,<0.14"]
+build-backend = "uv_build"
+
+# --- baseline -----------------------------------------------------------------
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["ALL"]
+# Only whole groups allowed here: D (docstrings; names and types carry intent)
+# and CPY (copyright headers). Anything else is a full rule code with a reason.
+ignore = [
+  "D",
+  "CPY",
+  "COM812", # conflicts with ruff format
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = [
+  "S101",    # pytest asserts
+  "PLR2004", # literal expected values
+  "INP001",  # tests/ is not a package
+]
+
+[tool.basedpyright]
+typeCheckingMode = "recommended"
+failOnWarnings = true
+include = ["src", "tests"]
+
+[tool.pytest]
+addopts = ["--strict-markers", "--strict-config", "-ra"]
+filterwarnings = ["error"]
+xfail_strict = true
+testpaths = ["tests"]
+
+[tool.coverage.run]
+branch = true
+source = ["src"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true

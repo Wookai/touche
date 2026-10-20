@@ -1,0 +1,142 @@
+# CI for touche (ADR 0001). The repo ruleset requires one check named "ci";
+# the last job reports the result of every other job under that name.
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  UV_VERSION: 0.13.1
+  ACTIONLINT: actionlint-py==1.7.12.25
+  ZIZMOR: zizmor==1.31.1
+  DEPTRY: deptry==0.25.1
+  PIP_AUDIT: pip-audit==2.10.1
+  GITLEAKS_VERSION: 8.30.1
+  GITLEAKS_SHA256: 551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb
+
+jobs:
+  repo:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
+        with:
+          version: ${{ env.UV_VERSION }}
+          enable-cache: false
+
+      - name: Workflows (actionlint, zizmor)
+        run: |
+          uvx --from "$ACTIONLINT" actionlint
+          uvx "$ZIZMOR" --offline --min-severity medium --config .github/zizmor.yml .github/
+
+      - name: Secrets in history (gitleaks)
+        run: |
+          curl -fsSL -o "$RUNNER_TEMP/gitleaks.tgz" \
+            "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          echo "${GITLEAKS_SHA256}  $RUNNER_TEMP/gitleaks.tgz" | sha256sum -c -
+          tar -xzf "$RUNNER_TEMP/gitleaks.tgz" -C "$RUNNER_TEMP" gitleaks
+          "$RUNNER_TEMP/gitleaks" git --no-banner --redact .
+
+      - name: Shell scripts (shellcheck)
+        run: |
+          mapfile -t files < <(
+            git ls-files | while read -r f; do
+              [[ -f "$f" ]] || continue
+              case "$f" in *.sh) echo "$f"; continue ;; esac
+              head -n1 "$f" | grep -qE '^#!.*[/ ](ba)?sh$' && echo "$f"
+            done
+          )
+          if (( ${#files[@]} == 0 )); then echo "no shell scripts"; exit 0; fi
+          shellcheck "${files[@]}"
+
+  python:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: pipeline
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
+        with:
+          version: ${{ env.UV_VERSION }}
+          enable-cache: true
+          cache-dependency-glob: pipeline/uv.lock
+
+      - name: Install locked environment
+        run: uv sync --locked --all-groups
+
+      - name: Format (ruff)
+        run: uv run ruff format --check .
+
+      - name: Lint (ruff)
+        run: uv run ruff check --output-format=github .
+
+      - name: Types (basedpyright)
+        run: uv run basedpyright
+
+      - name: Dependencies declared and used (deptry)
+        run: uv run --with "$DEPTRY" deptry .
+
+      - name: Known vulnerabilities (pip-audit)
+        run: |
+          uv export --locked --format requirements-txt --no-hashes --no-emit-project --all-groups > "$RUNNER_TEMP/requirements.txt"
+          uvx "$PIP_AUDIT" --disable-pip --no-deps -r "$RUNNER_TEMP/requirements.txt"
+
+      - name: Tests (pytest)
+        run: uv run pytest --cov --cov-branch --cov-fail-under=80
+
+  web:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+
+      - name: Install locked dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Types (tsc; engine has no DOM or Node globals)
+        run: npm run typecheck
+
+      - name: Tests (vitest)
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+      - name: Known vulnerabilities (npm audit)
+        run: npm audit --audit-level=moderate
+
+  ci:
+    needs: [repo, python, web]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Report the result of every check as "ci"
+        env:
+          RESULTS: ${{ join(needs.*.result, ' ') }}
+        run: |
+          for r in $RESULTS; do test "$r" = success; done

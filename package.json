@@ -1,0 +1,24 @@
+{
+  "name": "touche",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "engine",
+    "web"
+  ],
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "dev": "npm run dev -w web",
+    "build": "npm run build -w web",
+    "typecheck": "tsc -p engine && tsc -p engine/test && tsc -p engine/bin && tsc -p web",
+    "test": "vitest run",
+    "sim": "npm run sim -w engine"
+  },
+  "devDependencies": {
+    "@types/node": "24.19.2",
+    "typescript": "6.0.3",
+    "vitest": "5.0.5"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "@touche/engine",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "sim": "node bin/sim.ts"
+  }
+}
