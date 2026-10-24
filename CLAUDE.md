@@ -17,7 +17,7 @@ data/
   lang/      fr/  en/    words.json  kids-words.json  kids-sentences.json  corpus/*.txt   (generated)
   schema/    JSON Schema exported from the pipeline's pydantic models; TS types are generated from it
 docs/        decisions/ (one short ADR per non-obvious choice)
-.github/     ci.yml (the one required check), zizmor.yml
+.github/     ci.yml (the one required check), pages.yml (deploy web/ on push to main), zizmor.yml
 ```
 
 ## Hard rules
