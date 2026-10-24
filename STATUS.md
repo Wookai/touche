@@ -13,7 +13,6 @@ Updated: 2026-10-24 by Claude Code (local session: move to Wookai, Pages deploy)
 4. Word-list pipeline for en and fr, once licences are settled.
 
 ## Needs the maintainer
-- [ ] Install Renovate on `Wookai/touche` (GitHub App, select this repo).
 - [ ] Confirm word-list licences (Lexique, wordfreq, SUBTLEX, Manulex) before the pipeline ships any list.
 - [ ] Archive the Claude Doc version of the design; DESIGN.md here is canonical.
 
@@ -30,4 +29,5 @@ Updated: 2026-10-24 by Claude Code (local session: move to Wookai, Pages deploy)
 - Code MIT, generated content CC0, derived lists keep upstream licence (ADR 0002).
 - Kids sentences generated once offline, reviewed, cached (ADR 0003).
 - Content, pipeline, i18n, DESIGN.md and `.github/` always get the maintainer's review.
+- Renovate installed on `Wookai/touche` (GitHub App, this repo only).
 - Pages deploys straight from `main` without re-running checks: the ruleset already requires a green `ci` on every PR.
