@@ -5,7 +5,13 @@
     {
       "matchUpdateTypes": ["patch", "minor"],
       "matchCurrentVersion": "!/^0/",
+      "matchDepNames": ["!python"],
       "groupName": "non-major dependencies"
+    },
+    {
+      "description": "A Python bump moves the pipeline runtime: its own PR, opened only once approved on the Dependency Dashboard",
+      "matchDepNames": ["python"],
+      "dependencyDashboardApproval": true
     }
   ]
 }
