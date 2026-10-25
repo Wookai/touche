@@ -1,8 +1,10 @@
 # STATUS — touche
 
-Updated: 2026-10-25 by Claude Code (local session: #14, knip)
+Updated: 2026-10-25 by Claude Code (local sessions: #14 knip, #21 Renovate automerge)
 
 ## Done this session
+- #21 Renovate: patch and minor bumps automerge once `ci` is green; majors wait for a tick under Pending Approval on the
+  Dependency Dashboard (#5), as Python already did.
 - #14, first item: Biome 2.6 as the TypeScript lint and format baseline (`biome.jsonc`, every rule at error
   severity, same shape as the Python baseline), `npm run lint` in CI before tsc, `npm run format` to write
   fixes. Six exemptions, each with its reason in the config or inline. Markdown is left to hand formatting.
@@ -41,5 +43,6 @@ Updated: 2026-10-25 by Claude Code (local session: #14, knip)
 - Code MIT, generated content CC0, derived lists keep upstream licence (ADR 0002).
 - Kids sentences generated once offline, reviewed, cached (ADR 0003).
 - Content, pipeline, i18n, DESIGN.md and `.github/` always get the maintainer's review.
-- Renovate installed on `Wookai/touche` (GitHub App, this repo only).
+- Renovate installed on `Wookai/touche` (GitHub App, this repo only). Patch/minor automerge on green `ci`, majors need a
+  Dependency Dashboard tick (#21).
 - Deploy only from a `ci` run in which every check passed; vulnerability audits are scheduled, never required.
