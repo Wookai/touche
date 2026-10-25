@@ -149,6 +149,9 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Unused files, exports and dependencies (knip)
+        run: npm run knip
+
       - name: Upload the site for deploy
         if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0

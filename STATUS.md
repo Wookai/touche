@@ -1,11 +1,13 @@
 # STATUS — touche
 
-Updated: 2026-10-25 by Claude Code (local session: #14, Biome)
+Updated: 2026-10-25 by Claude Code (local session: #14, knip)
 
 ## Done this session
 - #14, first item: Biome 2.6 as the TypeScript lint and format baseline (`biome.jsonc`, every rule at error
   severity, same shape as the Python baseline), `npm run lint` in CI before tsc, `npm run format` to write
   fixes. Six exemptions, each with its reason in the config or inline. Markdown is left to hand formatting.
+- #14: knip in CI (`npm run knip`), the counterpart of deptry: unused files, exports, types and dependencies
+  across the npm workspaces, with vitest, vite and TypeScript understood through its built-in plugins.
 
 ## Open (next session picks up here, in order)
 1. #14, remaining items: restricted imports (engine/src never imports web/), knip, vitest coverage floor, bundle budget.

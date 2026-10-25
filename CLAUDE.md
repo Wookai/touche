@@ -55,6 +55,7 @@ npm run typecheck           # tsc per project (engine/src without DOM or Node)
 npm test                    # vitest: engine unit + property tests, web tests
 npm run sim                 # simulated learners through the scheduler, sessions-to-target
 npm run build               # production build → web/dist
+npm run knip                # unused files, exports and dependencies across the workspaces
 
 cd pipeline && uv sync --all-groups
 uv run pytest --cov --cov-branch          # pipeline tests
