@@ -5,7 +5,7 @@
 name = "touche-pipeline"
 version = "0.1.0"
 description = "Word lists, kids sentences and corpus chunks for touche"
-requires-python = ">=3.14"
+requires-python = ">=3.15"
 dependencies = []
 
 [dependency-groups]

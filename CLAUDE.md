@@ -9,7 +9,7 @@ engine/      TypeScript, zero DOM/browser deps — logger, model, generator, sch
              src/ typechecks with no DOM or Node lib; bin/ holds the Node entry points (sim)
 web/         React 18 + TypeScript + Vite; TanStack Router; Zustand; IndexedDB via idb; imports engine.
              UI strings in web/src/i18n/{fr,en}.json, hand-written
-pipeline/    Python 3.14 (uv, pytest, strict baseline) — frequency lists, graded word lists, kids sentences
+pipeline/    Python 3.15 (uv, pytest, strict baseline) — frequency lists, graded word lists, kids sentences
              (LLM, offline only), corpus chunking, log analysis. Writes data/, never runs at request time
 api/         (does not exist) FastAPI + SQLite blob store; see DESIGN.md → Stack. Do not create it without an ADR
 data/
