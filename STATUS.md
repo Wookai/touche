@@ -1,24 +1,28 @@
 # STATUS — touche
 
-Updated: 2026-10-20 by Claude Code (interactive cloud session: scaffold, standalone repo)
+Updated: 2026-10-25 by Claude Code (local session: GitHub setup audit, CI hardening)
 
 ## Done this session
-- #1 scaffold: npm workspaces `engine/` (src typechecks with no DOM or Node lib) and `web/` (Vite 8, React 18, Vitest 5, TS 6); `pipeline/` (Python 3.14, strict baseline); `ci.yml` with repo, python and web jobs reported as `ci`.
-- DESIGN.md at the repo root as the source of truth; six contradictions fixed (read & type vs unlocked characters, unlock rule, kids content source, `ui.json` location, snapshot header, kids lesson length) plus layout detection, units, licences.
-- ADRs 0001 (standalone public repo), 0002 (licences), 0003 (kids sentences offline). MIT `LICENSE`, `data/LICENSES.md`.
-- Decoupled from the private org tooling before the move to a personal account: no vendored gate or checks, no private Renovate preset or plugin.
+- Audit of the GitHub setup, filed as #10 to #15. This PR covers #10, #11 and #13:
+  - `ci.yml` deploys `web/` to Pages from `main` after every check job passed (replaces the separate
+    `pages.yml` of PR #2); the Node job is named `node` since it runs the engine tests too.
+  - Tool pins in `env:` carry `# renovate:` comments and `renovate.json` extends
+    `customManagers:githubActionsVersions`, so Renovate bumps uv, actionlint, zizmor, deptry, gitleaks and
+    pip-audit. gitleaks is verified against the release's checksums file instead of a committed hash.
+  - `npm audit` and `pip-audit` moved to the weekly `audit.yml`; `ci` has no step that can fail without a
+    change in the PR.
 
 ## Open (next session picks up here, in order)
-1. After the transfer: repo ruleset on `main` (require PR + `ci`), install Renovate on the new owner.
-2. `pages.yml`: build `web/` and deploy to Pages on push to `main`.
-3. Layout data files (fr-ch, fr-fr, en-us, en-gb) with their schema, and the calibration drill.
-4. Engine: logger, learner model, unlock rule with property tests; then generator and scheduler.
-5. Simulator with sessions-to-target output (`npm run sim`).
-6. Word-list pipeline for en and fr, once licences are settled.
+1. #14 TypeScript checks on a par with the pipeline baseline (lint/format, restricted imports, knip, coverage floor).
+2. Layout data files (fr-ch, fr-fr, en-us, en-gb) with their schema, and the calibration drill.
+3. Engine: logger, learner model, unlock rule with property tests; then generator and scheduler.
+4. Simulator with sessions-to-target output (`npm run sim`).
+5. Word-list pipeline for en and fr, once licences are settled.
 
 ## Needs the maintainer
-- [ ] Merge #2 (the org ruleset still requires `merge-gate`, which no longer runs here: bypass-merge).
-- [ ] Transfer the repo to the personal account (Settings → Transfer), make it public, enable Pages (source: GitHub Actions), add the `main` ruleset.
+- [ ] Close PR #2 once this PR is in: its deploy lives in `ci.yml` now.
+- [ ] #12 ruleset: require branches to be up to date. #15 free security features (Dependabot alerts, CodeQL,
+      SHA pinning required, private vulnerability reporting, non-provider secret patterns); commands in the issue.
 - [ ] Confirm word-list licences (Lexique, wordfreq, SUBTLEX, Manulex) before the pipeline ships any list.
 - [ ] Archive the Claude Doc version of the design; DESIGN.md here is canonical.
 
@@ -27,10 +31,12 @@ Updated: 2026-10-20 by Claude Code (interactive cloud session: scaffold, standal
 
 ## Health
 - Tests: engine and web vitest, pipeline pytest (86% coverage); typecheck, build, ruff, basedpyright, actionlint, zizmor clean locally.
-- Deploy: none yet.
+- Deploy: https://wookai.github.io/touche/ from `main`, by the `deploy` job of `ci.yml`.
 
 ## Decisions made in-session
 - Standalone public repo in a personal account, no private dependencies (ADR 0001).
 - Code MIT, generated content CC0, derived lists keep upstream licence (ADR 0002).
 - Kids sentences generated once offline, reviewed, cached (ADR 0003).
 - Content, pipeline, i18n, DESIGN.md and `.github/` always get the maintainer's review.
+- Renovate installed on `Wookai/touche` (GitHub App, this repo only).
+- Deploy only from a `ci` run in which every check passed; vulnerability audits are scheduled, never required.

@@ -1,0 +1,66 @@
+# Known-vulnerability audits, on a schedule and by hand. They query live
+# advisory feeds, so they are not part of the required "ci" check: a new
+# advisory must never turn an unrelated PR red. Dependabot alerts on the repo
+# are the first line (Renovate opens fix PRs from them); this is the safety net.
+# GitHub pauses scheduled workflows after 60 days without a commit; a manual
+# dispatch resumes them.
+name: audit
+
+on:
+  schedule:
+    - cron: "0 6 * * 1" # Mondays 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# One audit at a time; a manual dispatch during the scheduled run waits.
+concurrency:
+  group: audit
+  cancel-in-progress: false
+
+env:
+  # renovate: datasource=github-releases depName=astral-sh/uv
+  UV_VERSION: 0.13.5
+  # renovate: datasource=pypi depName=pip-audit
+  PIP_AUDIT_VERSION: 2.10.1
+
+jobs:
+  python:
+    name: python
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: pipeline
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e # v10.3.2
+        with:
+          version: ${{ env.UV_VERSION }}
+          enable-cache: false
+
+      - name: Known vulnerabilities (pip-audit)
+        run: |
+          uv export --locked --format requirements-txt --no-hashes --no-emit-project --all-groups > "$RUNNER_TEMP/requirements.txt"
+          uvx "pip-audit==$PIP_AUDIT_VERSION" --disable-pip --no-deps -r "$RUNNER_TEMP/requirements.txt"
+
+  node:
+    name: node
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Known vulnerabilities (npm audit)
+        run: npm audit --audit-level=moderate
