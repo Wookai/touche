@@ -1,6 +1,6 @@
 # STATUS — touche
 
-Updated: 2026-10-25 by Claude Code (local session: #14, restricted imports)
+Updated: 2026-10-25 by Claude Code (local session: #14, vitest coverage floor)
 
 ## Done this session
 - #14, first item: Biome 2.6 as the TypeScript lint and format baseline (`biome.jsonc`, every rule at error
@@ -9,6 +9,9 @@ Updated: 2026-10-25 by Claude Code (local session: #14, restricted imports)
 - #14: the hard rule "engine/src never imports from web/" is enforced by a Biome `noRestrictedImports`
   override on `engine/src/**` (also bans imports of `engine/bin` and `engine/test` from src). Verified on
   probe files: four forbidden imports fail, a `web/src` import of the engine passes.
+- #14: vitest coverage floor at 80% (statements, branches, functions, lines) over `engine/src` and `web/src`,
+  the counterpart of the pipeline's `--cov-fail-under=80`; `npm test` now runs with coverage. The DOM
+  bootstrap `web/src/main.tsx` is excluded.
 
 ## Open (next session picks up here, in order)
 1. #14, remaining: knip (#20) and the coverage floor (#19) are open PRs; bundle budget once real code lands.
