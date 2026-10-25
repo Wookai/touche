@@ -1,19 +1,14 @@
 # STATUS — touche
 
-Updated: 2026-10-25 by Claude Code (local session: GitHub setup audit, CI hardening)
+Updated: 2026-10-25 by Claude Code (local session: #14, Biome)
 
 ## Done this session
-- Audit of the GitHub setup, filed as #10 to #15. This PR covers #10, #11 and #13:
-  - `ci.yml` deploys `web/` to Pages from `main` after every check job passed (replaces the separate
-    `pages.yml` of PR #2); the Node job is named `node` since it runs the engine tests too.
-  - Tool pins in `env:` carry `# renovate:` comments and `renovate.json` extends
-    `customManagers:githubActionsVersions`, so Renovate bumps uv, actionlint, zizmor, deptry, gitleaks and
-    pip-audit. gitleaks is verified against the release's checksums file instead of a committed hash.
-  - `npm audit` and `pip-audit` moved to the weekly `audit.yml`; `ci` has no step that can fail without a
-    change in the PR.
+- #14, first item: Biome 2.6 as the TypeScript lint and format baseline (`biome.jsonc`, every rule at error
+  severity, same shape as the Python baseline), `npm run lint` in CI before tsc, `npm run format` to write
+  fixes. Six exemptions, each with its reason in the config or inline. Markdown is left to hand formatting.
 
 ## Open (next session picks up here, in order)
-1. #14 TypeScript checks on a par with the pipeline baseline (lint/format, restricted imports, knip, coverage floor).
+1. #14, remaining items: restricted imports (engine/src never imports web/), knip, vitest coverage floor, bundle budget.
 2. Layout data files (fr-ch, fr-fr, en-us, en-gb) with their schema, and the calibration drill.
 3. Engine: logger, learner model, unlock rule with property tests; then generator and scheduler.
 4. Simulator with sessions-to-target output (`npm run sim`).

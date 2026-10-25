@@ -34,6 +34,7 @@ docs/        decisions/ (one short ADR per non-obvious choice)
 - Licences: record the licence of every word list and corpus in `data/LICENSES.md` before adding it. Unknown licence = don't ship it. Never copy code or data from GPL/AGPL projects (Monkeytype, keybr); ADR 0002.
 - LLM calls run only on a developer machine, through one module with a cache keyed on (prompt, model). The cache and the reviewed output are committed; CI never calls a model and holds no model key (ADR 0003).
 - Python: the baseline in `pipeline/pyproject.toml` (ruff ALL, basedpyright recommended, pytest strict, 80% branch coverage) is never loosened; an ignore names a full rule code with a reason. No notebooks.
+- TypeScript: the baseline in `biome.jsonc` (every Biome rule at error severity, formatter, import order) is never loosened; a rule turned off or a `biome-ignore` names the rule with a reason. `engine/bin/**` is the only place Node modules may be imported.
 - Frontend: no new state library, CSS framework or component kit without an ADR. Components are plain functions; styling is CSS modules; one global theme file. Lazy-load routes, keep the initial bundle small (the first lesson should load fast on a school Chromebook).
 
 ## Working style
@@ -49,6 +50,7 @@ docs/        decisions/ (one short ADR per non-obvious choice)
 ```
 npm install                 # web + engine (workspaces); Node 24 (.nvmrc)
 npm run dev                 # web dev server
+npm run lint                # biome: lint, format check, import order (npm run format writes the fixes)
 npm run typecheck           # tsc per project (engine/src without DOM or Node)
 npm test                    # vitest: engine unit + property tests, web tests
 npm run sim                 # simulated learners through the scheduler, sessions-to-target
