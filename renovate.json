@@ -1,9 +1,16 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended", "helpers:pinGitHubActionDigests"],
+  "extends": [
+    "config:recommended",
+    "helpers:pinGitHubActionDigests",
+    "customManagers:githubActionsVersions"
+  ],
   "packageRules": [
     {
-      "matchUpdateTypes": ["patch", "minor"],
+      "matchUpdateTypes": [
+        "patch",
+        "minor"
+      ],
       "matchCurrentVersion": "!/^0/",
       "matchDepNames": ["!python"],
       "groupName": "non-major dependencies"

@@ -2,7 +2,7 @@
 
 A free, open-source touch-typing trainer for kids and adults, in French and English. Short adaptive lessons that drill your weak keys and letter pairs with real words, for Swiss (QWERTZ), French (AZERTY), US and UK keyboards. Everything runs in the browser: no account, no tracking, your progress never leaves your device.
 
-Status: early development; nothing to try yet.
+Status: early development. The site deploys to https://wookai.github.io/touche/ from `main`.
 
 - Design and the research behind it: [DESIGN.md](DESIGN.md)
 - Decisions: [docs/decisions/](docs/decisions/)
