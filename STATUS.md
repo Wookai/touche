@@ -6,11 +6,14 @@ Updated: 2026-10-25 by Claude Code (local session: #14, knip)
 - #14, first item: Biome 2.6 as the TypeScript lint and format baseline (`biome.jsonc`, every rule at error
   severity, same shape as the Python baseline), `npm run lint` in CI before tsc, `npm run format` to write
   fixes. Six exemptions, each with its reason in the config or inline. Markdown is left to hand formatting.
+- #14: the hard rule "engine/src never imports from web/" is enforced by a Biome `noRestrictedImports`
+  override on `engine/src/**` (also bans imports of `engine/bin` and `engine/test` from src). Verified on
+  probe files: four forbidden imports fail, a `web/src` import of the engine passes.
 - #14: knip in CI (`npm run knip`), the counterpart of deptry: unused files, exports, types and dependencies
   across the npm workspaces, with vitest, vite and TypeScript understood through its built-in plugins.
 
 ## Open (next session picks up here, in order)
-1. #14, remaining items: restricted imports (engine/src never imports web/), knip, vitest coverage floor, bundle budget.
+1. #14, remaining: knip (#20) and the coverage floor (#19) are open PRs; bundle budget once real code lands.
 2. Layout data files (fr-ch, fr-fr, en-us, en-gb) with their schema, and the calibration drill.
 3. Engine: logger, learner model, unlock rule with property tests; then generator and scheduler.
 4. Simulator with sessions-to-target output (`npm run sim`).
