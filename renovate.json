@@ -13,6 +13,17 @@
       "groupName": "non-major dependencies"
     },
     {
+      "description": "Patch and minor bumps (grouped or 0.x singles) merge on their own once `ci` is green",
+      "matchUpdateTypes": ["patch", "minor"],
+      "matchDepNames": ["!python"],
+      "automerge": true
+    },
+    {
+      "description": "Majors wait on the Dependency Dashboard: tick the box under Pending Approval to get the PR",
+      "matchUpdateTypes": ["major"],
+      "dependencyDashboardApproval": true
+    },
+    {
       "description": "A Python bump moves the pipeline runtime: its own PR, opened only once approved on the Dependency Dashboard",
       "matchDepNames": ["python"],
       "dependencyDashboardApproval": true
