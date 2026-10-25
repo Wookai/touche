@@ -63,6 +63,32 @@
       "linter": { "rules": { "correctness": { "noNodejsModules": "off" } } }
     },
     {
+      // CLAUDE.md, Hard rules: engine/src never imports from web/. It also never imports its own
+      // Node entry points (engine/bin imports src, not the other way round) or its tests.
+      "includes": ["engine/src/**"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "patterns": [
+                  {
+                    "group": ["**/web/**", "@touche/web", "@touche/web/**"],
+                    "message": "engine/src never imports from web/ (CLAUDE.md, Hard rules)."
+                  },
+                  {
+                    "group": ["**/bin/**", "**/test/**"],
+                    "message": "engine/src imports only engine/src; bin/ and test/ import src, never the reverse."
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
       // Tests use literal expected values (the pipeline ignores PLR2004 in tests for the same reason).
       "includes": ["**/test/**", "**/*.test.ts", "**/*.test.tsx"],
       "linter": { "rules": { "style": { "noMagicNumbers": "off" } } }

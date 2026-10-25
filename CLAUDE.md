@@ -23,7 +23,7 @@ docs/        decisions/ (one short ADR per non-obvious choice)
 
 ## Hard rules
 
-- `engine/src` never imports from `web/` or touches `window`, `document`, `localStorage`, timers. The typecheck enforces it; keep `lib` and `types` empty there.
+- `engine/src` never imports from `web/`, `engine/bin` or `engine/test`, and never touches `window`, `document`, `localStorage`, timers. Biome's restricted-imports override enforces the imports, the typecheck the globals; keep `lib` and `types` empty there.
 - `web/` is the only thing deployed. It must work with `api/` absent, unreachable or disabled.
 - Keystroke identity is `KeyboardEvent.code` (physical key). `.key` is used only to detect layout and resolve the character. Model units are characters and bigrams of characters; never key the model on `.key`.
 - Generator is deterministic given `(profileState, langData, layout, lessonType, seed)`. Property tests assert: only unlocked characters, no word repeated within a lesson, length within the mode's target for the profile's rolling WPM (2–3 min adults, ≤ 2 min kids), single language per lesson.
@@ -52,9 +52,10 @@ npm install                 # web + engine (workspaces); Node 24 (.nvmrc)
 npm run dev                 # web dev server
 npm run lint                # biome: lint, format check, import order (npm run format writes the fixes)
 npm run typecheck           # tsc per project (engine/src without DOM or Node)
-npm test                    # vitest: engine unit + property tests, web tests
+npm test                    # vitest with coverage: engine unit + property tests, web tests; 80% floor
 npm run sim                 # simulated learners through the scheduler, sessions-to-target
 npm run build               # production build → web/dist
+npm run knip                # unused files, exports and dependencies across the workspaces
 
 cd pipeline && uv sync --all-groups
 uv run pytest --cov --cov-branch          # pipeline tests
