@@ -1,0 +1,71 @@
+// TypeScript baseline (CLAUDE.md, Hard rules): every Biome rule at error severity, formatter and
+// import order. Never loosened; a rule turned off below names its reason. Same shape as the Python
+// baseline in pipeline/pyproject.toml.
+{
+  "$schema": "https://biomejs.dev/schemas/2.6.3/schema.json",
+  "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
+  "files": { "ignoreUnknown": false },
+  "formatter": { "enabled": true, "indentStyle": "space", "indentWidth": 2, "lineWidth": 100 },
+  "javascript": { "formatter": { "quoteStyle": "double" } },
+  // Prose (DESIGN.md, STATUS.md, data/LICENSES.md) is formatted by hand.
+  "markdown": { "formatter": { "enabled": false } },
+  "assist": { "enabled": true, "actions": { "source": { "organizeImports": "on" } } },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "preset": "all",
+      "a11y": "error",
+      "complexity": "error",
+      "correctness": "error",
+      "performance": "error",
+      "security": "error",
+      "style": "error",
+      "suspicious": "error"
+    }
+  },
+  "overrides": [
+    {
+      "includes": ["**"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            // This is a web app, not React Native: raw text in JSX is fine.
+            "noReactNativeRawText": "off",
+            // Dev dependencies live in the root package.json (npm workspaces); Biome only reads
+            // the nearest one. knip checks declared-and-used dependencies with workspace awareness.
+            "noUndeclaredDependencies": "off",
+            // False positives on CommonJS packages (react's StrictMode); tsc fails on a missing export.
+            "noUnresolvedImports": "off"
+          },
+          "style": {
+            // React components are PascalCase files (App.tsx, App.test.tsx).
+            "useFilenamingConvention": {
+              "level": "error",
+              "options": { "filenameCases": ["camelCase", "PascalCase", "kebab-case"] }
+            }
+          }
+        }
+      }
+    },
+    {
+      // Vite and Vitest read a default export from their config files.
+      "includes": ["**/*.config.ts"],
+      "linter": { "rules": { "style": { "noDefaultExport": "off" } } }
+    },
+    {
+      // The engine's public entry re-exports its modules on purpose (package.json "exports").
+      "includes": ["engine/src/index.ts"],
+      "linter": { "rules": { "performance": { "noBarrelFile": "off" } } }
+    },
+    {
+      // engine/bin holds the Node entry points; engine/src stays free of Node modules.
+      "includes": ["engine/bin/**"],
+      "linter": { "rules": { "correctness": { "noNodejsModules": "off" } } }
+    },
+    {
+      // Tests use literal expected values (the pipeline ignores PLR2004 in tests for the same reason).
+      "includes": ["**/test/**", "**/*.test.ts", "**/*.test.tsx"],
+      "linter": { "rules": { "style": { "noMagicNumbers": "off" } } }
+    }
+  ]
+}

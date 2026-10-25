@@ -15,7 +15,7 @@ describe("mulberry32", () => {
 
   it("stays in [0, 1)", () => {
     const next = mulberry32(7);
-    for (let i = 0; i < 10_000; i++) {
+    for (let i = 0; i < 10_000; i += 1) {
       const x = next();
       expect(x).toBeGreaterThanOrEqual(0);
       expect(x).toBeLessThan(1);

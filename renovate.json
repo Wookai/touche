@@ -7,10 +7,7 @@
   ],
   "packageRules": [
     {
-      "matchUpdateTypes": [
-        "patch",
-        "minor"
-      ],
+      "matchUpdateTypes": ["patch", "minor"],
       "matchCurrentVersion": "!/^0/",
       "matchDepNames": ["!python"],
       "groupName": "non-major dependencies"
