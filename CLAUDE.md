@@ -23,7 +23,7 @@ docs/        decisions/ (one short ADR per non-obvious choice)
 
 ## Hard rules
 
-- `engine/src` never imports from `web/` or touches `window`, `document`, `localStorage`, timers. The typecheck enforces it; keep `lib` and `types` empty there.
+- `engine/src` never imports from `web/`, `engine/bin` or `engine/test`, and never touches `window`, `document`, `localStorage`, timers. Biome's restricted-imports override enforces the imports, the typecheck the globals; keep `lib` and `types` empty there.
 - `web/` is the only thing deployed. It must work with `api/` absent, unreachable or disabled.
 - Keystroke identity is `KeyboardEvent.code` (physical key). `.key` is used only to detect layout and resolve the character. Model units are characters and bigrams of characters; never key the model on `.key`.
 - Generator is deterministic given `(profileState, langData, layout, lessonType, seed)`. Property tests assert: only unlocked characters, no word repeated within a lesson, length within the mode's target for the profile's rolling WPM (2–3 min adults, ≤ 2 min kids), single language per lesson.
