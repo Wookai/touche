@@ -9,11 +9,14 @@ Updated: 2026-10-25 by Claude Code (local session: #14, knip)
 - #14: the hard rule "engine/src never imports from web/" is enforced by a Biome `noRestrictedImports`
   override on `engine/src/**` (also bans imports of `engine/bin` and `engine/test` from src). Verified on
   probe files: four forbidden imports fail, a `web/src` import of the engine passes.
+- #14: vitest coverage floor at 80% (statements, branches, functions, lines) over `engine/src` and `web/src`,
+  the counterpart of the pipeline's `--cov-fail-under=80`; `npm test` now runs with coverage. The DOM
+  bootstrap `web/src/main.tsx` is excluded.
 - #14: knip in CI (`npm run knip`), the counterpart of deptry: unused files, exports, types and dependencies
   across the npm workspaces, with vitest, vite and TypeScript understood through its built-in plugins.
 
 ## Open (next session picks up here, in order)
-1. #14, remaining: knip (#20) and the coverage floor (#19) are open PRs; bundle budget once real code lands.
+1. #14, remaining: bundle budget for the initial chunk, once real code lands.
 2. Layout data files (fr-ch, fr-fr, en-us, en-gb) with their schema, and the calibration drill.
 3. Engine: logger, learner model, unlock rule with property tests; then generator and scheduler.
 4. Simulator with sessions-to-target output (`npm run sim`).

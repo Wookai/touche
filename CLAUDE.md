@@ -52,7 +52,7 @@ npm install                 # web + engine (workspaces); Node 24 (.nvmrc)
 npm run dev                 # web dev server
 npm run lint                # biome: lint, format check, import order (npm run format writes the fixes)
 npm run typecheck           # tsc per project (engine/src without DOM or Node)
-npm test                    # vitest: engine unit + property tests, web tests
+npm test                    # vitest with coverage: engine unit + property tests, web tests; 80% floor
 npm run sim                 # simulated learners through the scheduler, sessions-to-target
 npm run build               # production build → web/dist
 npm run knip                # unused files, exports and dependencies across the workspaces
