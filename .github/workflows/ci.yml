@@ -27,7 +27,7 @@ concurrency:
 
 env:
   # renovate: datasource=github-releases depName=astral-sh/uv
-  UV_VERSION: 0.13.5
+  UV_VERSION: 0.13.6
   # renovate: datasource=pypi depName=actionlint-py
   ACTIONLINT_VERSION: 1.7.12.25
   # renovate: datasource=pypi depName=zizmor
