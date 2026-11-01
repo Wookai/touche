@@ -41,7 +41,6 @@ Updated: 2026-11-01 by Claude Code (local session: #31 placement test design, #3
 
 ## Needs the maintainer
 - [ ] Review the #35 French UI strings (`web/src/i18n/fr.json`, tutoiement) and try the drill on a real keyboard.
-- [ ] Review the #33 layout files (`data/`): spot-check the AltGr and dead keys on fr-CH and fr-FR against a real keyboard.
 - [ ] Close PR #2 once this PR is in: its deploy lives in `ci.yml` now.
 - [ ] #12 ruleset: require branches to be up to date. #15 free security features (Dependabot alerts, CodeQL,
       SHA pinning required, private vulnerability reporting, non-provider secret patterns); commands in the issue.
