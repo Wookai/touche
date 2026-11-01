@@ -24,6 +24,7 @@
     "@biomejs/biome": "2.6.4",
     "@types/node": "24.19.2",
     "@vitest/coverage-v8": "5.0.5",
+    "happy-dom": "21.0.1",
     "json-schema-to-typescript": "16.0.0",
     "knip": "6.44.1",
     "typescript": "7.0.2",

@@ -1,0 +1,14 @@
+{
+  "app.title": "Touche",
+  "app.layout": "Clavier : {layout}",
+  "drill.title": "Quel clavier as-tu ?",
+  "drill.ask": "Appuie sur cette touche :",
+  "drill.detected": "Ton clavier :",
+  "drill.confirm": "C’est bien ça",
+  "drill.change": "En choisir un autre",
+  "drill.pick": "Choisis ton clavier :",
+  "layout.en-gb": "Anglais (Royaume-Uni)",
+  "layout.en-us": "Anglais (États-Unis)",
+  "layout.fr-ch": "Suisse romand (QWERTZ)",
+  "layout.fr-fr": "Français (AZERTY)"
+}
