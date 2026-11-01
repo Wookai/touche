@@ -1,6 +1,6 @@
 # STATUS — touche
 
-Updated: 2026-11-01 by Claude Code (local session: #31 placement test design, #33 layout data)
+Updated: 2026-11-01 by Claude Code (local session: #31 placement test design, #33 layout data, #35 layout detection engine)
 
 ## Done this session
 - #31 DESIGN.md: the adult 60 s baseline becomes a staged placement test (home row → frequent letters → alphabet
@@ -9,6 +9,11 @@ Updated: 2026-11-01 by Claude Code (local session: #31 placement test design, #3
 - #33 `data/layouts/{en-us,en-gb,fr-ch,fr-fr}.json`: code → base/shift/AltGr characters, dead keys, hand, finger,
   row. Schema from pydantic models in `pipeline/` (`data/schema/layout.schema.json`); `touche-pipeline all`
   exports it, `check` validates the files and fails on a stale schema, both under pytest so CI enforces them.
+- #35, engine half: `candidates(layouts, observations)` keeps the layouts consistent with every observed
+  `(code, key)` pair (typos still narrow, modifiers and unmapped keys ignored); `nextProbe` picks the character
+  that splits them best (no AltGr, letters first). v1 layouts resolve in at most two probes (`z`, then `"`), or
+  in one step from a `getLayoutMap()` map. `Layout` type generated from the schema (`npm run types`,
+  json-schema-to-typescript); a test fails when it is stale.
 - #21 Renovate: patch and minor bumps automerge once `ci` is green; majors wait for a tick under Pending Approval on the
   Dependency Dashboard (#5), as Python already did.
 - #14, first item: Biome 2.6 as the TypeScript lint and format baseline (`biome.jsonc`, every rule at error
@@ -25,8 +30,8 @@ Updated: 2026-11-01 by Claude Code (local session: #31 placement test design, #3
 
 ## Open (next session picks up here, in order)
 1. #14, remaining: bundle budget for the initial chunk, once real code lands.
-2. Layout detection drill (`getLayoutMap()` where available, else the z/y, a/q, é, @ drill, else a picker);
-   TypeScript types generated from `data/schema/` land with it or the first engine consumer.
+2. #35, web half: drill screen (`getLayoutMap()` when present, else the probes, picker when 0 or 2+ candidates
+   remain), first i18n strings. Choice kept in memory until profiles exist.
 3. Engine: logger, learner model, unlock rule with property tests; then generator and scheduler.
 4. Simulator with sessions-to-target output (`npm run sim`).
 5. Word-list pipeline for en and fr, once licences are settled.
