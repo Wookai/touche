@@ -1,8 +1,11 @@
 # STATUS — touche
 
-Updated: 2026-10-25 by Claude Code (local sessions: #14 knip, #21 Renovate automerge)
+Updated: 2026-11-01 by Claude Code (local session: #31 placement test design)
 
 ## Done this session
+- #31 DESIGN.md: the adult 60 s baseline becomes a staged placement test (home row → frequent letters → alphabet
+  → capitals and punctuation), passed on the unlock rule's accuracy terms, stopping at the first failed stage.
+  Kids still start from zero. Design only; implementation waits for layouts and the learner model.
 - #21 Renovate: patch and minor bumps automerge once `ci` is green; majors wait for a tick under Pending Approval on the
   Dependency Dashboard (#5), as Python already did.
 - #14, first item: Biome 2.6 as the TypeScript lint and format baseline (`biome.jsonc`, every rule at error
@@ -23,8 +26,10 @@ Updated: 2026-10-25 by Claude Code (local sessions: #14 knip, #21 Renovate autom
 3. Engine: logger, learner model, unlock rule with property tests; then generator and scheduler.
 4. Simulator with sessions-to-target output (`npm run sim`).
 5. Word-list pipeline for en and fr, once licences are settled.
+6. #31 placement test: engine (stage generation, pass/stop rule, seeding) with simulator check, then the web flow.
 
 ## Needs the maintainer
+- [ ] Review the #31 DESIGN.md change (content: needs your review, not just green CI).
 - [ ] Close PR #2 once this PR is in: its deploy lives in `ci.yml` now.
 - [ ] #12 ruleset: require branches to be up to date. #15 free security features (Dependabot alerts, CodeQL,
       SHA pinning required, private vulnerability reporting, non-provider secret patterns); commands in the issue.
@@ -43,6 +48,7 @@ Updated: 2026-10-25 by Claude Code (local sessions: #14 knip, #21 Renovate autom
 - Code MIT, generated content CC0, derived lists keep upstream licence (ADR 0002).
 - Kids sentences generated once offline, reviewed, cached (ADR 0003).
 - Content, pipeline, i18n, DESIGN.md and `.github/` always get the maintainer's review.
+- Adults get a staged placement test instead of a 60 s baseline; kids always start from zero (#31).
 - Renovate installed on `Wookai/touche` (GitHub App, this repo only). Patch/minor automerge on green `ci`, majors need a
   Dependency Dashboard tick (#21).
 - Deploy only from a `ci` run in which every check passed; vulnerability audits are scheduled, never required.
