@@ -31,6 +31,9 @@
           "correctness": {
             // This is a web app, not React Native: raw text in JSX is fine.
             "noReactNativeRawText": "off",
+            // React, not Solid or Qwik: destructured props and plain closures are idiomatic here.
+            "noSolidDestructuredProps": "off",
+            "useQwikValidLexicalScope": "off",
             // Dev dependencies live in the root package.json (npm workspaces); Biome only reads
             // the nearest one. knip checks declared-and-used dependencies with workspace awareness.
             "noUndeclaredDependencies": "off",

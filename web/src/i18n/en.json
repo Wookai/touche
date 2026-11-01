@@ -1,0 +1,14 @@
+{
+  "app.title": "Touche",
+  "app.layout": "Keyboard: {layout}",
+  "drill.title": "Which keyboard do you have?",
+  "drill.ask": "Press this key:",
+  "drill.detected": "Your keyboard:",
+  "drill.confirm": "That’s right",
+  "drill.change": "Choose another",
+  "drill.pick": "Choose your keyboard:",
+  "layout.en-gb": "English (UK)",
+  "layout.en-us": "English (US)",
+  "layout.fr-ch": "Swiss French (QWERTZ)",
+  "layout.fr-fr": "French (AZERTY)"
+}

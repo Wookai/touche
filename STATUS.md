@@ -1,6 +1,6 @@
 # STATUS — touche
 
-Updated: 2026-11-01 by Claude Code (local session: #31 placement test design, #33 layout data, #35 layout detection engine)
+Updated: 2026-11-01 by Claude Code (local session: #31 placement test design, #33 layout data, #35 layout detection engine and drill screen)
 
 ## Done this session
 - #31 DESIGN.md: the adult 60 s baseline becomes a staged placement test (home row → frequent letters → alphabet
@@ -14,6 +14,9 @@ Updated: 2026-11-01 by Claude Code (local session: #31 placement test design, #3
   that splits them best (no AltGr, letters first). v1 layouts resolve in at most two probes (`z`, then `"`), or
   in one step from a `getLayoutMap()` map. `Layout` type generated from the schema (`npm run types`,
   json-schema-to-typescript); a test fails when it is stale.
+- #35, web half: the app opens on the layout drill (`web/src/LayoutDrill.tsx`, logic in `drill.ts`): Keyboard API
+  map where present, else one probe at a time, confirm or override, picker for unknown layouts. First i18n
+  (`web/src/i18n/{en,fr}.json`, `t()`, UI language from `navigator.languages`). happy-dom for component tests.
 - #21 Renovate: patch and minor bumps automerge once `ci` is green; majors wait for a tick under Pending Approval on the
   Dependency Dashboard (#5), as Python already did.
 - #14, first item: Biome 2.6 as the TypeScript lint and format baseline (`biome.jsonc`, every rule at error
@@ -30,14 +33,14 @@ Updated: 2026-11-01 by Claude Code (local session: #31 placement test design, #3
 
 ## Open (next session picks up here, in order)
 1. #14, remaining: bundle budget for the initial chunk, once real code lands.
-2. #35, web half: drill screen (`getLayoutMap()` when present, else the probes, picker when 0 or 2+ candidates
-   remain), first i18n strings. Choice kept in memory until profiles exist.
+2. Profiles in IndexedDB (kids/adult mode, layout, language); the drill's choice is in memory until then.
 3. Engine: logger, learner model, unlock rule with property tests; then generator and scheduler.
 4. Simulator with sessions-to-target output (`npm run sim`).
 5. Word-list pipeline for en and fr, once licences are settled.
 6. #31 placement test: engine (stage generation, pass/stop rule, seeding) with simulator check, then the web flow.
 
 ## Needs the maintainer
+- [ ] Review the #35 French UI strings (`web/src/i18n/fr.json`, tutoiement) and try the drill on a real keyboard.
 - [ ] Review the #33 layout files (`data/`): spot-check the AltGr and dead keys on fr-CH and fr-FR against a real keyboard.
 - [ ] Close PR #2 once this PR is in: its deploy lives in `ci.yml` now.
 - [ ] #12 ruleset: require branches to be up to date. #15 free security features (Dependabot alerts, CodeQL,
