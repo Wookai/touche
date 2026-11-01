@@ -1,0 +1,456 @@
+{
+  "id": "en-us",
+  "keys": {
+    "Backquote": {
+      "hand": "left",
+      "finger": "pinky",
+      "row": "number",
+      "chars": {
+        "base": "`",
+        "shift": "~"
+      }
+    },
+    "Digit1": {
+      "hand": "left",
+      "finger": "pinky",
+      "row": "number",
+      "chars": {
+        "base": "1",
+        "shift": "!"
+      }
+    },
+    "Digit2": {
+      "hand": "left",
+      "finger": "ring",
+      "row": "number",
+      "chars": {
+        "base": "2",
+        "shift": "@"
+      }
+    },
+    "Digit3": {
+      "hand": "left",
+      "finger": "middle",
+      "row": "number",
+      "chars": {
+        "base": "3",
+        "shift": "#"
+      }
+    },
+    "Digit4": {
+      "hand": "left",
+      "finger": "index",
+      "row": "number",
+      "chars": {
+        "base": "4",
+        "shift": "$"
+      }
+    },
+    "Digit5": {
+      "hand": "left",
+      "finger": "index",
+      "row": "number",
+      "chars": {
+        "base": "5",
+        "shift": "%"
+      }
+    },
+    "Digit6": {
+      "hand": "right",
+      "finger": "index",
+      "row": "number",
+      "chars": {
+        "base": "6",
+        "shift": "^"
+      }
+    },
+    "Digit7": {
+      "hand": "right",
+      "finger": "index",
+      "row": "number",
+      "chars": {
+        "base": "7",
+        "shift": "&"
+      }
+    },
+    "Digit8": {
+      "hand": "right",
+      "finger": "middle",
+      "row": "number",
+      "chars": {
+        "base": "8",
+        "shift": "*"
+      }
+    },
+    "Digit9": {
+      "hand": "right",
+      "finger": "ring",
+      "row": "number",
+      "chars": {
+        "base": "9",
+        "shift": "("
+      }
+    },
+    "Digit0": {
+      "hand": "right",
+      "finger": "pinky",
+      "row": "number",
+      "chars": {
+        "base": "0",
+        "shift": ")"
+      }
+    },
+    "Minus": {
+      "hand": "right",
+      "finger": "pinky",
+      "row": "number",
+      "chars": {
+        "base": "-",
+        "shift": "_"
+      }
+    },
+    "Equal": {
+      "hand": "right",
+      "finger": "pinky",
+      "row": "number",
+      "chars": {
+        "base": "=",
+        "shift": "+"
+      }
+    },
+    "Backspace": {
+      "hand": "right",
+      "finger": "pinky",
+      "row": "number"
+    },
+    "KeyQ": {
+      "hand": "left",
+      "finger": "pinky",
+      "row": "top",
+      "chars": {
+        "base": "q",
+        "shift": "Q"
+      }
+    },
+    "KeyW": {
+      "hand": "left",
+      "finger": "ring",
+      "row": "top",
+      "chars": {
+        "base": "w",
+        "shift": "W"
+      }
+    },
+    "KeyE": {
+      "hand": "left",
+      "finger": "middle",
+      "row": "top",
+      "chars": {
+        "base": "e",
+        "shift": "E"
+      }
+    },
+    "KeyR": {
+      "hand": "left",
+      "finger": "index",
+      "row": "top",
+      "chars": {
+        "base": "r",
+        "shift": "R"
+      }
+    },
+    "KeyT": {
+      "hand": "left",
+      "finger": "index",
+      "row": "top",
+      "chars": {
+        "base": "t",
+        "shift": "T"
+      }
+    },
+    "KeyY": {
+      "hand": "right",
+      "finger": "index",
+      "row": "top",
+      "chars": {
+        "base": "y",
+        "shift": "Y"
+      }
+    },
+    "KeyU": {
+      "hand": "right",
+      "finger": "index",
+      "row": "top",
+      "chars": {
+        "base": "u",
+        "shift": "U"
+      }
+    },
+    "KeyI": {
+      "hand": "right",
+      "finger": "middle",
+      "row": "top",
+      "chars": {
+        "base": "i",
+        "shift": "I"
+      }
+    },
+    "KeyO": {
+      "hand": "right",
+      "finger": "ring",
+      "row": "top",
+      "chars": {
+        "base": "o",
+        "shift": "O"
+      }
+    },
+    "KeyP": {
+      "hand": "right",
+      "finger": "pinky",
+      "row": "top",
+      "chars": {
+        "base": "p",
+        "shift": "P"
+      }
+    },
+    "BracketLeft": {
+      "hand": "right",
+      "finger": "pinky",
+      "row": "top",
+      "chars": {
+        "base": "[",
+        "shift": "{"
+      }
+    },
+    "BracketRight": {
+      "hand": "right",
+      "finger": "pinky",
+      "row": "top",
+      "chars": {
+        "base": "]",
+        "shift": "}"
+      }
+    },
+    "KeyA": {
+      "hand": "left",
+      "finger": "pinky",
+      "row": "home",
+      "chars": {
+        "base": "a",
+        "shift": "A"
+      }
+    },
+    "KeyS": {
+      "hand": "left",
+      "finger": "ring",
+      "row": "home",
+      "chars": {
+        "base": "s",
+        "shift": "S"
+      }
+    },
+    "KeyD": {
+      "hand": "left",
+      "finger": "middle",
+      "row": "home",
+      "chars": {
+        "base": "d",
+        "shift": "D"
+      }
+    },
+    "KeyF": {
+      "hand": "left",
+      "finger": "index",
+      "row": "home",
+      "chars": {
+        "base": "f",
+        "shift": "F"
+      }
+    },
+    "KeyG": {
+      "hand": "left",
+      "finger": "index",
+      "row": "home",
+      "chars": {
+        "base": "g",
+        "shift": "G"
+      }
+    },
+    "KeyH": {
+      "hand": "right",
+      "finger": "index",
+      "row": "home",
+      "chars": {
+        "base": "h",
+        "shift": "H"
+      }
+    },
+    "KeyJ": {
+      "hand": "right",
+      "finger": "index",
+      "row": "home",
+      "chars": {
+        "base": "j",
+        "shift": "J"
+      }
+    },
+    "KeyK": {
+      "hand": "right",
+      "finger": "middle",
+      "row": "home",
+      "chars": {
+        "base": "k",
+        "shift": "K"
+      }
+    },
+    "KeyL": {
+      "hand": "right",
+      "finger": "ring",
+      "row": "home",
+      "chars": {
+        "base": "l",
+        "shift": "L"
+      }
+    },
+    "Semicolon": {
+      "hand": "right",
+      "finger": "pinky",
+      "row": "home",
+      "chars": {
+        "base": ";",
+        "shift": ":"
+      }
+    },
+    "Quote": {
+      "hand": "right",
+      "finger": "pinky",
+      "row": "home",
+      "chars": {
+        "base": "'",
+        "shift": "\""
+      }
+    },
+    "Backslash": {
+      "hand": "right",
+      "finger": "pinky",
+      "row": "top",
+      "chars": {
+        "base": "\\",
+        "shift": "|"
+      }
+    },
+    "ShiftLeft": {
+      "hand": "left",
+      "finger": "pinky",
+      "row": "bottom"
+    },
+    "KeyZ": {
+      "hand": "left",
+      "finger": "pinky",
+      "row": "bottom",
+      "chars": {
+        "base": "z",
+        "shift": "Z"
+      }
+    },
+    "KeyX": {
+      "hand": "left",
+      "finger": "ring",
+      "row": "bottom",
+      "chars": {
+        "base": "x",
+        "shift": "X"
+      }
+    },
+    "KeyC": {
+      "hand": "left",
+      "finger": "middle",
+      "row": "bottom",
+      "chars": {
+        "base": "c",
+        "shift": "C"
+      }
+    },
+    "KeyV": {
+      "hand": "left",
+      "finger": "index",
+      "row": "bottom",
+      "chars": {
+        "base": "v",
+        "shift": "V"
+      }
+    },
+    "KeyB": {
+      "hand": "left",
+      "finger": "index",
+      "row": "bottom",
+      "chars": {
+        "base": "b",
+        "shift": "B"
+      }
+    },
+    "KeyN": {
+      "hand": "right",
+      "finger": "index",
+      "row": "bottom",
+      "chars": {
+        "base": "n",
+        "shift": "N"
+      }
+    },
+    "KeyM": {
+      "hand": "right",
+      "finger": "index",
+      "row": "bottom",
+      "chars": {
+        "base": "m",
+        "shift": "M"
+      }
+    },
+    "Comma": {
+      "hand": "right",
+      "finger": "middle",
+      "row": "bottom",
+      "chars": {
+        "base": ",",
+        "shift": "<"
+      }
+    },
+    "Period": {
+      "hand": "right",
+      "finger": "ring",
+      "row": "bottom",
+      "chars": {
+        "base": ".",
+        "shift": ">"
+      }
+    },
+    "Slash": {
+      "hand": "right",
+      "finger": "pinky",
+      "row": "bottom",
+      "chars": {
+        "base": "/",
+        "shift": "?"
+      }
+    },
+    "ShiftRight": {
+      "hand": "right",
+      "finger": "pinky",
+      "row": "bottom"
+    },
+    "Space": {
+      "hand": "right",
+      "finger": "thumb",
+      "row": "space",
+      "chars": {
+        "base": " "
+      }
+    },
+    "AltRight": {
+      "hand": "right",
+      "finger": "thumb",
+      "row": "space"
+    }
+  }
+}

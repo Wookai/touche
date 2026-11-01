@@ -3,6 +3,9 @@
 Updated: 2026-10-25 by Claude Code (local sessions: #14 knip, #21 Renovate automerge)
 
 ## Done this session
+- #33 `data/layouts/{en-us,en-gb,fr-ch,fr-fr}.json`: code → base/shift/AltGr characters, dead keys, hand, finger,
+  row. Schema from pydantic models in `pipeline/` (`data/schema/layout.schema.json`); `touche-pipeline all`
+  exports it, `check` validates the files and fails on a stale schema, both under pytest so CI enforces them.
 - #21 Renovate: patch and minor bumps automerge once `ci` is green; majors wait for a tick under Pending Approval on the
   Dependency Dashboard (#5), as Python already did.
 - #14, first item: Biome 2.6 as the TypeScript lint and format baseline (`biome.jsonc`, every rule at error
@@ -19,12 +22,14 @@ Updated: 2026-10-25 by Claude Code (local sessions: #14 knip, #21 Renovate autom
 
 ## Open (next session picks up here, in order)
 1. #14, remaining: bundle budget for the initial chunk, once real code lands.
-2. Layout data files (fr-ch, fr-fr, en-us, en-gb) with their schema, and the calibration drill.
+2. Layout detection drill (`getLayoutMap()` where available, else the z/y, a/q, é, @ drill, else a picker);
+   TypeScript types generated from `data/schema/` land with it or the first engine consumer.
 3. Engine: logger, learner model, unlock rule with property tests; then generator and scheduler.
 4. Simulator with sessions-to-target output (`npm run sim`).
 5. Word-list pipeline for en and fr, once licences are settled.
 
 ## Needs the maintainer
+- [ ] Review the #33 layout files (`data/`): spot-check the AltGr and dead keys on fr-CH and fr-FR against a real keyboard.
 - [ ] Close PR #2 once this PR is in: its deploy lives in `ci.yml` now.
 - [ ] #12 ruleset: require branches to be up to date. #15 free security features (Dependabot alerts, CodeQL,
       SHA pinning required, private vulnerability reporting, non-provider secret patterns); commands in the issue.
@@ -35,7 +40,7 @@ Updated: 2026-10-25 by Claude Code (local sessions: #14 knip, #21 Renovate autom
 - Word-list pipeline: licences.
 
 ## Health
-- Tests: engine and web vitest, pipeline pytest (86% coverage); typecheck, build, ruff, basedpyright, actionlint, zizmor clean locally.
+- Tests: engine and web vitest, pipeline pytest (98% coverage); typecheck, build, ruff, basedpyright, actionlint, zizmor clean locally.
 - Deploy: https://wookai.github.io/touche/ from `main`, by the `deploy` job of `ci.yml`.
 
 ## Decisions made in-session

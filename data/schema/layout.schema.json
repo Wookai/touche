@@ -1,0 +1,145 @@
+{
+  "$defs": {
+    "Char": {
+      "maxLength": 1,
+      "minLength": 1,
+      "type": "string"
+    },
+    "Code": {
+      "enum": [
+        "Backquote",
+        "Digit1",
+        "Digit2",
+        "Digit3",
+        "Digit4",
+        "Digit5",
+        "Digit6",
+        "Digit7",
+        "Digit8",
+        "Digit9",
+        "Digit0",
+        "Minus",
+        "Equal",
+        "Backspace",
+        "KeyQ",
+        "KeyW",
+        "KeyE",
+        "KeyR",
+        "KeyT",
+        "KeyY",
+        "KeyU",
+        "KeyI",
+        "KeyO",
+        "KeyP",
+        "BracketLeft",
+        "BracketRight",
+        "Backslash",
+        "KeyA",
+        "KeyS",
+        "KeyD",
+        "KeyF",
+        "KeyG",
+        "KeyH",
+        "KeyJ",
+        "KeyK",
+        "KeyL",
+        "Semicolon",
+        "Quote",
+        "ShiftLeft",
+        "IntlBackslash",
+        "KeyZ",
+        "KeyX",
+        "KeyC",
+        "KeyV",
+        "KeyB",
+        "KeyN",
+        "KeyM",
+        "Comma",
+        "Period",
+        "Slash",
+        "ShiftRight",
+        "Space",
+        "AltRight"
+      ],
+      "type": "string"
+    },
+    "Finger": {
+      "enum": ["pinky", "ring", "middle", "index", "thumb"],
+      "title": "Finger",
+      "type": "string"
+    },
+    "Hand": {
+      "enum": ["left", "right"],
+      "title": "Hand",
+      "type": "string"
+    },
+    "Key": {
+      "additionalProperties": false,
+      "properties": {
+        "hand": {
+          "$ref": "#/$defs/Hand"
+        },
+        "finger": {
+          "$ref": "#/$defs/Finger"
+        },
+        "row": {
+          "$ref": "#/$defs/Row"
+        },
+        "chars": {
+          "additionalProperties": {
+            "$ref": "#/$defs/Char"
+          },
+          "default": {},
+          "propertyNames": {
+            "$ref": "#/$defs/Level"
+          },
+          "title": "Chars",
+          "type": "object"
+        },
+        "dead": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Level"
+          },
+          "title": "Dead",
+          "type": "array"
+        }
+      },
+      "required": ["hand", "finger", "row"],
+      "title": "Key",
+      "type": "object"
+    },
+    "Level": {
+      "description": "Modifier level a character is typed at; AltGr is AltRight on these layouts.",
+      "enum": ["base", "shift", "altgr"],
+      "title": "Level",
+      "type": "string"
+    },
+    "Row": {
+      "enum": ["number", "top", "home", "bottom", "space"],
+      "title": "Row",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "pattern": "^[a-z]{2}-[a-z]{2}$",
+      "title": "Id",
+      "type": "string"
+    },
+    "keys": {
+      "additionalProperties": {
+        "$ref": "#/$defs/Key"
+      },
+      "propertyNames": {
+        "$ref": "#/$defs/Code"
+      },
+      "title": "Keys",
+      "type": "object"
+    }
+  },
+  "required": ["id", "keys"],
+  "title": "Layout",
+  "type": "object"
+}
