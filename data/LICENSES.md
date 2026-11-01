@@ -4,7 +4,8 @@ Every file under `data/` is listed here with its source and licence before it is
 
 | File | Source | Licence | Attribution |
 | --- | --- | --- | --- |
-| _none yet_ | | | |
+| `layouts/*.json` | Written for touche from the standard OS layouts (character positions are facts, not copied from another project) | CC0 1.0 | none |
+| `schema/*.schema.json` | Exported from `pipeline/` models | CC0 1.0 | none |
 
 ## Candidates under review
 

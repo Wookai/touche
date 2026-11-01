@@ -17,12 +17,14 @@
     "format": "biome check --write .",
     "typecheck": "tsc -p engine && tsc -p engine/test && tsc -p engine/bin && tsc -p web",
     "test": "vitest run --coverage",
-    "sim": "npm run sim -w engine"
+    "sim": "npm run sim -w engine",
+    "types": "node engine/bin/types.ts"
   },
   "devDependencies": {
     "@biomejs/biome": "2.6.4",
     "@types/node": "24.19.2",
     "@vitest/coverage-v8": "5.0.5",
+    "json-schema-to-typescript": "16.0.0",
     "knip": "6.44.1",
     "typescript": "7.0.2",
     "vitest": "5.0.5"
