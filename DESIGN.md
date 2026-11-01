@@ -94,7 +94,7 @@ The model is a small per-profile state, updated after every keystroke, that driv
 
 **Curriculum order:** home row first (per layout), then the most frequent remaining letters for the language, so French and English profiles diverge after the home row. Capitals, punctuation and digits are separate tracks unlocked after the full alphabet.
 
-**Adult "improve" entry:** a 60-second baseline on real text seeds `err` and `lat` for all keys at once; the curriculum is marked fully unlocked and the generator works from priorities only.
+**Adult placement test:** adults start with a short staged test that walks the curriculum order, so each starts where their skill actually stops rather than at zero or at "everything unlocked". Stages, each ~100 characters of real words from the generator restricted to that stage's characters: (1) home row, (2) home row plus the next most frequent letters, (3) the full alphabet, (4) sentences with capitals and punctuation. A stage passes on the unlock rule's terms: error rate below 3% over the stage, with latency only holding back a stage typed accurately but very slowly; speed alone never passes a stage (P3). The test stops at the first failed stage, so it lasts under 2 minutes and never asks a learner to type keys they have not shown. The learner starts with the last passed stage's characters unlocked (nothing passed = home row from zero), and the test's keystrokes are logged like any lesson, so they seed `err` and `lat` for the units they touched. Seeded units count as real occurrences, so the next unlock still waits until every unlocked key has its full N occurrences: placement can skip curriculum steps, never the accuracy gate. A learner who passes stage 3 is in "improve" mode (P2: own mapping kept). Adults can skip the test and start from zero ("relearn"). Kids never take it.
 
 **Simulated learner:** a stochastic model with hidden per-key skill that improves with exposure and decays with time. The generator is tuned against it (minimise sessions to a target WPM at ≥97% accuracy), then checked against real logs. This is the hook for agent-driven iteration. Tuning against a model we wrote ourselves is circular, so its latency and error distributions should be fitted to public data (open question below).
 
@@ -128,7 +128,7 @@ One engine, two modes chosen at profile creation; the differences are in pacing,
 
 |  | Kids (≈7–11) | Adults / older kids |
 | --- | --- | --- |
-| Entry | Home row from zero, no baseline test | 60 s baseline on real text, then "improve" or "relearn" |
+| Entry | Home row from zero, no placement test | Staged placement test (< 2 min), start at the last passed stage; or skip it and "relearn" from zero |
 | Session cap | 5 min, lesson ≤ 2 min | 3 min lessons, no daily cap |
 | Speed targets | None shown; speed bursts disabled | Shown; bursts enabled once accuracy is stable |
 | Unlock pace | Slower: 97% accuracy over 200 occurrences | 97% over 100 occurrences |
@@ -188,6 +188,7 @@ Where tools are ahead of the papers: Keybr's per-key confidence with decay is a 
 - [ ] How strictly to enforce fingering for adults who already type 50+ WPM with their own mapping (P2). Default is "don't"; confirm it doesn't cap them.
 - [ ] Is 2 minutes too long for a 7-year-old? Watch the first two weeks of real use.
 - [ ] Word-list licences (SUBTLEX, Lexique, wordfreq, Manulex) for redistribution in an open-source repo. Blocks the word-list pipeline; record each in `data/LICENSES.md` first.
+- [ ] Placement test stage boundaries (how many letters after the home row in stage 2) and stage length (~100 characters) are guesses. Tune against the simulator: a simulated learner with known hidden skill should be placed at the stage that skill implies, and placed learners should not regress more than ones who climbed there.
 - [ ] A key that never reaches the unlock threshold blocks progress. Watch for stalls in real logs before adding a forced unlock or a skip.
 - [ ] Fit the simulated learner's per-key and per-bigram latency and error distributions to the Dhakal 2018 dataset (check its licence for derived parameters), and set `target_lat` from it.
 - [ ] Keystroke log retention in IndexedDB: a 3-minute lesson logs ~600 events. Keep raw events for N days, then aggregate into unit state.
